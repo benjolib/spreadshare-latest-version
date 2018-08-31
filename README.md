@@ -1,5 +1,7 @@
 # Spreadshare WebApp
 
+[![Build Status](https://circleci.com/bb/spreadshare/webapp.svg?style=shield&circle-token=c0dc0ba2d8c917a32fda7c6a988b8afb2a8599cf)](https://circleci.com/bb/spreadshare/webapp)
+
 The Spreadhare vuejs-nuxt web app
 
 ## Prerequisites

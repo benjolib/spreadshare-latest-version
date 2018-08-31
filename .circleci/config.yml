@@ -1,0 +1,100 @@
+version: 2
+
+vm_settings: &vm_settings
+  docker:
+    # https://circleci.com/docs/2.0/circleci-images/#nodejs
+    - image: shashanktomar/circleci-python-nodejs-dumpenv
+  working_directory: ~/app
+
+install_restore_cache: &install_restore_cache
+  name: Restore cached dependencies
+  keys:
+    - dependencies-{{ checksum "yarn.lock" }}
+    # Fall back to using the latest cache if no exact match is found
+    - dependencies
+
+install_run: &install_run
+  name: Install dependencies with Yarn, purely from the lockfile
+  command: yarn install --frozen-lockfile
+
+install_save_cache: &install_save_cache
+  name: Cache installed dependencies
+  paths:
+    - ~/.cache
+  key: dependencies-{{ checksum "yarn.lock" }}
+
+install_restore_cache_exact: &install_restore_cache_exact
+  name: Restore cached dependencies for this build
+  keys:
+    - dependencies-{{ checksum "yarn.lock" }}
+    # Fall back to using the latest cache if no exact match is found
+    - dependencies
+
+jobs:
+  test-lint:
+    <<: *vm_settings
+    steps:
+      - checkout
+
+      # Install dependencies
+      - restore_cache: *install_restore_cache
+      - run: *install_run
+      - save_cache: *install_save_cache
+
+      - run:
+          name: Unit Test
+          command: 'yarn ci:test'
+          environment:
+            JEST_JUNIT_OUTPUT: 'reports/junit/js-test-results.xml'
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+
+  # build:
+  #   <<: *vm_settings
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker
+  #     - run:
+  #         name: Docker build
+  #         command: docker build -t temp-name --build-arg NODE_ENV=production -f docker/vue/Dockerfile .
+
+  e2e:
+    <<: *vm_settings
+    steps:
+      - checkout
+      - run:
+          name: Generate env file
+          command: dump-env -t config/.env.template -p 'SECRET_' > config/.env
+      - setup_remote_docker
+      - run:
+          name: Docker build
+          command: docker build -t temp-name --build-arg NODE_ENV=development -f docker/vue/Dockerfile .
+      - run:
+          name: Run App
+          command: |
+            docker run -p 3000:3000 --env-file config/.env -d --name app temp-name yarn dev
+            sleep 20
+            # docker run --network container:app appropriate/curl --retry 20 --retry-delay 1 --retry-connrefused http://localhost:3000
+      - run:
+          name: E2e Test
+          command: BASE_TEST_URL="http://localhost:3000" NETWORK="container:app" sh ./docker/testcafe/e2e.sh
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-lint
+      # - build:
+      #     requires:
+      #       - test-lint
+      - e2e:
+          requires:
+            - test-lint
+      # - publish:
+      #     requires:
+      #       - e2e
+      # - deploy:
+      #     requires:
+      #       - publish

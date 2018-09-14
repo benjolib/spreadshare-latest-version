@@ -1,9 +1,6 @@
 <template>
   <main>
     <div>
-      <app-logo />
-      <action-bar />
-
       <section
         v-if="hasComments"
         :class="$style.container"
@@ -14,7 +11,6 @@
           :key="comment.id"
         />
       </section>
-
     </div>
   </main>
 </template>
@@ -27,8 +23,6 @@ import { Store } from 'vuex'
 import Component from 'nuxt-class-component'
 import { Getter, State } from 'vuex-class'
 
-import ActionBar from '~/components/ActionBar'
-import AppLogo from '~/components/AppLogo'
 import Comment from '~/components/Comment'
 
 import type { CommentType, StateType } from '~/types'
@@ -36,8 +30,6 @@ import type { CommentType, StateType } from '~/types'
 // @vue/component
 @Component({
   components: {
-    ActionBar,
-    AppLogo,
     Comment,
   },
 })
@@ -75,7 +67,14 @@ export default class Index extends Vue {
 }
 </script>
 
+<!-- This should generally be the only global CSS in the app. -->
 <style lang="scss" module>
+// Allow element/type selectors, because this is global CSS.
+// stylelint-disable selector-max-type, selector-class-pattern
+
+// Design variables and utilities from src/design.
+@import '~/scss/index';
+
 .container {
   display: flex;
   flex-wrap: wrap;

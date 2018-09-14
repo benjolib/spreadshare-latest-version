@@ -1,6 +1,35 @@
 // This file contains useful mixins that are used
 // in other places in the project.
 
-@mixin centered {
-  text-align: center;
+$break-small: 576px;
+$break-medium: 768px;
+$break-large: 992px;
+$break-xlarge: 1200px;
+
+@mixin mq($media) {
+  @if $media == small-device {
+    @media only screen and (max-width: $break-small) {
+      @content;
+    }
+  } @else if $media == medium-device {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium) {
+      @content;
+    }
+  } @else if $media == large-device {
+    @media only screen and (min-width: $break-medium + 1) and (max-width: $break-large) {
+      @content;
+    }
+  } @else if $media == xlarge-device {
+    @media only screen and (min-width: $break-xlarge) {
+      @content;
+    }
+  } @else if $media == medium-and-small-devices {
+    @media only screen and (max-width: $break-medium) {
+      @content;
+    }
+  } @else if $media == large-and-xlarge-devices {
+    @media only screen and (min-width: $break-medium) {
+      @content;
+    }
+  }
 }

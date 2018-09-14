@@ -41,6 +41,10 @@ module.exports = {
         sizes: '96x96',
         href: '/favicon-96x96.png',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Raleway|Roboto+Mono',
+      },
     ],
   },
 
@@ -53,7 +57,17 @@ module.exports = {
   /**
    * Extra Nuxt modules
    */
-  modules: ['nuxt-babel', 'nuxt-imagemin', '@nuxtjs/router', '@nuxtjs/axios'],
+  modules: [
+    'nuxt-babel',
+    'nuxt-imagemin',
+    '@nuxtjs/router',
+    '@nuxtjs/axios',
+    'nuxt-fontawesome',
+  ],
+
+  fontawesome: {
+    component: 'fa',
+  },
 
   /**
    * Axios settings

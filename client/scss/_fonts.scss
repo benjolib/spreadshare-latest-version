@@ -1,0 +1,35 @@
+$system-default-font-family: -apple-system, BlinkMacSystemFont, 'Raleway',
+  'Helvetica Neue', Arial, 'Helvetica', sans-serif;
+$style-font-family-raleway: 'Raleway', sans-serif;
+$style-font-family-roboto-mono: 'Roboto Mono', monospace;
+
+$system-default-font-size: 14px;
+
+$heading-font-family: $system-default-font-family;
+$heading-font-weight: 600;
+
+$content-font-family: $system-default-font-family;
+$content-font-weight: 400;
+
+%font-heading {
+  font-family: $heading-font-family;
+  font-weight: $heading-font-weight;
+  color: $color-heading-text;
+}
+
+%font-content {
+  font-family: $content-font-family;
+  font-weight: $content-font-weight;
+  color: $color-text;
+}
+
+%font-button {
+  font-family: $style-font-family-roboto-mono;
+  font-size: $system-default-font-size;
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+  line-height: normal;
+  text-align: left;
+  letter-spacing: normal;
+}

@@ -83,23 +83,21 @@ export default class Comment extends Vue {
 </script>
 
 <style lang="scss" module>
-@import '~/scss/variables';
-
 .commentComponent {
-  background: $color-white;
+  position: relative;
   max-width: 15.6rem;
-  border: 0.12rem solid;
   padding: 0.74rem;
   margin: 0.5rem;
-  position: relative;
+  background: white;
+  border: 0.12rem solid;
 }
 
 .commentPositive {
-  border-color: $button-color-green;
+  border-color: green;
 }
 
 .commentNegative {
-  border-color: $button-color-red;
+  border-color: red;
 }
 
 .author {
@@ -124,19 +122,19 @@ export default class Comment extends Vue {
   }
 
   button {
+    width: 2rem;
     margin: 0 0.5rem;
+    cursor: pointer;
     border: none;
     outline: none;
-    cursor: pointer;
-    width: 2rem;
   }
 }
 
 .ratingUp {
-  background: $button-color-green;
+  background: green;
 }
 
 .ratingDown {
-  background: $button-color-red;
+  background: red;
 }
 </style>

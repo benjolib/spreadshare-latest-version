@@ -21,6 +21,7 @@
     "test:unit:ci": "jest --config tests/jest.config.js --ci --reporters jest-junit",
     "test:sec": "nsp check --warn-only",
     "test": "yarn test:unit && yarn test:sec && yarn lint",
+    "test:e2e": "BASE_TEST_URL='http://host.docker.internal:3000' sh ./docker/testcafe/e2e.sh",
     "lint:js": "eslint --ext .js,.jsx,.vue,.json .",
     "lint:js:ci": "eslint --ext .js,.jsx,.vue,.json --format junit -o reports/junit/js-lint-results.xml .",
     "lint:css": "stylelint 'client/**/*.{vue,scss,css}'",

@@ -120,6 +120,6 @@ workflows:
           requires:
             - e2e
           <<: *branch-filter-master
-      - deploy:
-          requires:
-            - publish
+      # - deploy:
+      #     requires:
+      #       - publish

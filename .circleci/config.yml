@@ -3,7 +3,7 @@ version: 2
 vm_settings: &vm_settings
   docker:
     # https://circleci.com/docs/2.0/circleci-images/#nodejs
-    - image: shashanktomar/circleci-python-nodejs-dumpenv
+    - image: greybeard1123/circleci-python-nodejs-dumpenv-awscli
   working_directory: ~/app
 
 install_restore_cache: &install_restore_cache
@@ -30,6 +30,12 @@ install_restore_cache_exact: &install_restore_cache_exact
     # Fall back to using the latest cache if no exact match is found
     - dependencies
 
+branch-filter-master: &branch-filter-master
+  filters:
+    branches:
+      only:
+        - master
+
 jobs:
   test-lint:
     <<: *vm_settings
@@ -51,30 +57,51 @@ jobs:
       - store_artifacts:
           path: reports/junit
 
-  # build:
-  #   <<: *vm_settings
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run:
-  #         name: Docker build
-  #         command: docker build -t temp-name --build-arg NODE_ENV=production -f docker/vue/Dockerfile .
+  publish:
+    <<: *vm_settings
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo 'export GIT_SHA1="$(echo $CIRCLE_SHA1 | cut -c -7)"' >> $BASH_ENV
+      - run:
+          name: Generate env file
+          command: dump-env -t config/.env.template -p 'SECRET_' > config/.env
+      - run:
+          name: Docker build
+          command: docker build -t $CIRCLE_PROJECT_REPONAME:$GIT_SHA1 --build-arg NODE_ENV=production -f docker/vue/Dockerfile .
+      - run:
+          name: Login to ECR registry
+          command: $(aws ecr get-login --no-include-email --region eu-central-1)
+      - run:
+          name: Tag the image
+          command: |
+            docker tag $CIRCLE_PROJECT_REPONAME:$GIT_SHA1 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CIRCLE_PROJECT_REPONAME:$GIT_SHA1
+
+            docker tag $CIRCLE_PROJECT_REPONAME:$GIT_SHA1 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CIRCLE_PROJECT_REPONAME:latest
+      - run:
+          name: Push to ECR registry
+          command: |
+            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CIRCLE_PROJECT_REPONAME:$GIT_SHA1
+            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CIRCLE_PROJECT_REPONAME:latest
 
   e2e:
     <<: *vm_settings
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Generate env file
           command: dump-env -t config/.env.template -p 'SECRET_' > config/.env
-      - setup_remote_docker
       - run:
           name: Docker build
-          command: docker build -t temp-name --build-arg NODE_ENV=development -f docker/vue/Dockerfile .
+          command: docker build -t webapp --build-arg NODE_ENV=development -f docker/vue/Dockerfile .
       - run:
           name: Run App
           command: |
-            docker run -p 3000:3000 --env-file config/.env -d --name app temp-name yarn dev
+            docker run -p 3000:3000 --env-file config/.env -d --name app webapp yarn dev
             sleep 20
             # docker run --network container:app appropriate/curl --retry 20 --retry-delay 1 --retry-connrefused http://localhost:3000
       - run:
@@ -86,15 +113,13 @@ workflows:
   test:
     jobs:
       - test-lint
-      # - build:
-      #     requires:
-      #       - test-lint
       - e2e:
           requires:
             - test-lint
-      # - publish:
-      #     requires:
-      #       - e2e
-      # - deploy:
-      #     requires:
-      #       - publish
+      - publish:
+          requires:
+            - e2e
+          <<: *branch-filter-master
+      - deploy:
+          requires:
+            - publish

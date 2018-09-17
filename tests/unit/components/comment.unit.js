@@ -5,7 +5,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import Comment from '~/components/Comment'
 import * as types from '~/store/types'
 
-import { storeFactory, commentFactory } from '../fixtures/vuex'
+import { storeFactory, commentFactory } from '../../fixtures/vuex'
 
 const localVue = createLocalVue()
 

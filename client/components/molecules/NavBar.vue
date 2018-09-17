@@ -4,7 +4,7 @@
       <div :class="$style.navContent">
         <div>
 
-          <app-logo :class="$style.margingLogo" />
+          <app-logo :class="$style.marginLogo" />
           <nav-tab
             :class="$style.marginTabs"
             title="Feed"
@@ -38,9 +38,9 @@
 <script>
 // @flow
 
-import AppLogo from '~/components/atoms/AppLogo'
-import NavTab from '~/components/atoms/NavTab'
-import ButtonLogin from '~/components/atoms/ButtonLogin'
+import AppLogo from '@atoms/AppLogo'
+import NavTab from '@atoms/NavTab'
+import ButtonLogin from '@atoms/ButtonLogin'
 
 export default {
   components: { AppLogo, NavTab, ButtonLogin },
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/scss/index';
+@import '@design';
 
 .nav {
   position: fixed;
@@ -77,7 +77,7 @@ export default {
   }
 }
 
-.margingLogo {
+.marginLogo {
   margin-right: 36px;
 }
 

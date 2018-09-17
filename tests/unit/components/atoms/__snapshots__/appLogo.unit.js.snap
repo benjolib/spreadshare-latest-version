@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`appLogo snapshot tests should match the snapshot 1`] = `
+<nuxt-link-stub
+  to="/"
+>
+  <img
+    alt="logo"
+    class="logo"
+    src="~assets/logo.svg"
+  />
+</nuxt-link-stub>
+`;

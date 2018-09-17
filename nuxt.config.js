@@ -3,6 +3,7 @@
 
 const path = require('path')
 const pkg = require('./package.json')
+const aliases = require('./aliases.config')
 
 const envPath = path.resolve(__dirname, 'config', '.env')
 require('dotenv').config({ path: envPath })
@@ -121,8 +122,11 @@ module.exports = {
     vendor: ['babel-polyfill'],
 
     extend(config, { isDev, isClient }) {
-      // This line allows us to use `@import "~/scss/..."` in our app:
-      config.resolve.alias['/scss'] = path.resolve(__dirname, 'client', 'scss')
+      const alias = config.resolve.alias || {}
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        ...aliases.nuxt,
+      }
 
       if (isDev && isClient) {
         // Enabling eslint:

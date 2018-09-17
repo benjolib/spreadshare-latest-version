@@ -24,7 +24,7 @@ export default {
 // stylelint-disable selector-max-type, selector-class-pattern
 
 // Design variables and utilities from src/design.
-@import '~/scss/index';
+@import '@design';
 
 *,
 *::before,

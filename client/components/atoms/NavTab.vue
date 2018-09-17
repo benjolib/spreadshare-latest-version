@@ -31,7 +31,7 @@ export default {
     },
     color: {
       type: String,
-      required: true,
+      default: '#333',
     },
   },
   data: () => ({
@@ -42,7 +42,7 @@ export default {
       this.changeSelector(to.path === this.link)
     },
   },
-  mounted() {
+  beforeMount() {
     this.changeSelector(this.$route.path === this.link)
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/scss/index';
+@import '@design';
 
 .navTab {
   @extend %font-button;

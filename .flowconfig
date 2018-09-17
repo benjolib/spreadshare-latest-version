@@ -22,6 +22,7 @@ sketchy-null=error
 include_warnings=true
 esproposal.decorators=ignore
 module.name_mapper='^~' -> '<PROJECT_ROOT>/client'
+module.name_mapper='@atoms' -> '<PROJECT_ROOT>/client/components/atoms'
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=client
 module.file_ext=.vue

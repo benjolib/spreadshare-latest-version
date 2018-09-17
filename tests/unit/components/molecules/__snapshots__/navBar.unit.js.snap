@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navBar snapshot tests should match the snapshot 1`] = `
+<div>
+  <nav
+    class="nav"
+  >
+    <div
+      class="navContent"
+    >
+      <div>
+        <applogo-stub
+          class="marginLogo"
+        />
+         
+        <navtab-stub
+          class="marginTabs"
+          color="#ea612d"
+          image="/header-feed-bird.svg"
+          link="/feed"
+          title="Feed"
+        />
+         
+        <navtab-stub
+          class="marginTabs"
+          color="#2c247f"
+          image="/header-explore-whale.svg"
+          link="/"
+          title="Explore"
+        />
+         
+        <navtab-stub
+          class="marginTabs"
+          color="#2860f5"
+          image="/header-collabs-octopus.svg"
+          link="/collabs"
+          title="Collabs"
+        />
+      </div>
+       
+      <div>
+        <buttonlogin-stub />
+      </div>
+    </div>
+  </nav>
+</div>
+`;

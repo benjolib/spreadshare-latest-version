@@ -35,21 +35,15 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 export default {
   computed: {
-    faFacebook() {
-      return faFacebookF
-    },
-    faTwitter() {
-      return faTwitter
-    },
-    faGoogle() {
-      return faGoogle
-    },
+    faFacebook: () => faFacebookF,
+    faTwitter: () => faTwitter,
+    faGoogle: () => faGoogle,
   },
 }
 </script>
 
 <style lang="scss" module>
-@import '~/scss/index';
+@import '@design';
 
 .login {
   @extend %button;

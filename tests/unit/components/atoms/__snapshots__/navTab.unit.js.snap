@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navTab snapshot tests should have bottom selector as transperent if route does not matches link on first mount 1`] = `
+<nuxt-link-stub
+  class="navTab"
+  style="color: rgb(51, 51, 51); border-bottom: 3px solid transparent;"
+  to="/explore"
+>
+  <img
+    alt="some value"
+    src="someImage"
+  />
+  some value
+
+</nuxt-link-stub>
+`;
+
+exports[`navTab snapshot tests should have bottom selector if route matches link on first mount 1`] = `
+<nuxt-link-stub
+  class="navTab"
+  style="color: rgb(51, 51, 51); border-bottom: 3px solid #333;"
+  to="/explore"
+>
+  <img
+    alt="some value"
+    src="someImage"
+  />
+  some value
+
+</nuxt-link-stub>
+`;

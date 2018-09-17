@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buttonLogin snapshot tests should match the snapshot 1`] = `
+<nuxt-link-stub
+  class="login"
+  to="/login"
+>
+  <span>
+    
+    Join Us
+    
+    <span
+      class="viaText"
+    >
+      
+      via
+    
+    </span>
+  </span>
+   
+  <fa-stub
+    class="icon"
+    icon="[object Object]"
+    size="xs"
+  />
+   
+  <fa-stub
+    class="icon"
+    icon="[object Object]"
+    size="sm"
+  />
+   
+  <fa-stub
+    class="icon"
+    icon="[object Object]"
+    size="xs"
+  />
+</nuxt-link-stub>
+`;

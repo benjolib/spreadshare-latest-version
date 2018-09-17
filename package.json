@@ -17,6 +17,7 @@
     "start": "cross-env NODE_ENV=production nuxt start",
     "generate": "cross-env NODE_ENV=production nuxt generate",
     "test:unit": "cross-env NODE_ENV=test jest --config tests/jest.config.js",
+    "test:unit:watch": "yarn test:unit --watch --notify --notifyMode --verbose false",
     "test:unit:ci": "jest --config tests/jest.config.js --ci --reporters jest-junit",
     "test:sec": "nsp check --warn-only",
     "test": "yarn test:unit && yarn test:sec && yarn lint",
@@ -30,7 +31,9 @@
     "docs:api": "documentation build client/** -f md -o docs/project/api.md",
     "docs:serve": "yarn docs:build && gitbook serve docs",
     "docs:build": "yarn docs:api && gitbook build docs",
-    "ci:test": "yarn test:unit:ci && yarn test:sec && yarn lint:ci"
+    "ci:test": "yarn test:unit:ci && yarn test:sec && yarn lint:ci",
+    "browserslist": "npx browserslist",
+    "new": "hygen new"
   },
   "husky": {
     "hooks": {
@@ -52,7 +55,12 @@
       "@commitlint/config-conventional"
     ]
   },
-  "browserslist": "> 5%, last 2 versions, not ie < 11, not ie_mob < 11",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie < 11",
+    "not ie_mob < 11"
+  ],
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.3.1",
     "@nuxtjs/axios": "^5.3.1",

@@ -11,7 +11,7 @@
 </template>
 
 <style lang="scss" module>
-@import '~/scss/index';
+@import '@design';
 
 .logo {
   display: inline-block;

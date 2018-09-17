@@ -4,7 +4,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import MockAdapter from 'axios-mock-adapter'
 
 import Index from '~/views/Index'
-import { storeFactory, commentFactory } from '../fixtures/vuex'
+import { storeFactory, commentFactory } from '../../fixtures/vuex'
 
 const localVue = createLocalVue()
 

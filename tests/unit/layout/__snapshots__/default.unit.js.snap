@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaultLayout snapshot tests should match the snapshot 1`] = `
+<div
+  id="app"
+>
+  <navbar-stub />
+   
+  <nuxt-stub
+    nuxt-child-key="none"
+    role="main"
+  />
+</div>
+`;

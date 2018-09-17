@@ -144,3 +144,4 @@ flow-typed/
 docs/_book/
 jest_*/
 junit.xml
+reports

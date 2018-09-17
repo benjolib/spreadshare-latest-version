@@ -18,12 +18,19 @@ You might also want to install:
 
 ## Development
 
+### Running locally
+
 When developing locally, we use:
 
 - [`editorconfig`](http://editorconfig.org/) plugin (**required**)
 - [`yarn`](https://yarnpkg.com) (**required**)
 - copy config/.env.tempalte file to config/.env
 - `yarn dev`
+
+### Commiting changes
+
+Use `yarn commit` to make a commit using commitzen. 
+Please read docs for more information
 
 ## Documentation
 

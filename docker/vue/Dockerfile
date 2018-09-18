@@ -48,5 +48,3 @@ RUN set -ex; \
   else \
   yarn install --no-cache --frozen-lockfile; \
   fi;
-
-EXPOSE 4000

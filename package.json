@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development nuxt",
     "clean": "rm -rf .nuxt dist",
     "build": "yarn clean && cross-env NODE_ENV=production nuxt build",
-    "start": "cross-env NODE_ENV=production nuxt start",
+    "start": "cross-env NODE_ENV=production HOST=0.0.0.0 PORT=3000 nuxt start",
     "generate": "cross-env NODE_ENV=production nuxt generate",
     "test:unit": "cross-env NODE_ENV=test jest --config tests/jest.config.js",
     "test:unit:ci": "jest --config tests/jest.config.js --ci --reporters jest-junit",
